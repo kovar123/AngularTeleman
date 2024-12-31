@@ -1,0 +1,85 @@
+
+
+<div >
+<!--    <div>
+    <dx-switch  id="swichTeraz" switchedOnText="aaa" [value]="odTeraz" (onValueChanged)="onValueChanged($event)">
+    </dx-switch>
+    
+    </div>
+ -->  
+
+  
+  <div>
+  <dx-data-grid   height="800"
+  id="gridContainer"
+  [dataSource]="tvs"
+  [showBorders]="false"
+  [focusedRowEnabled]="true"
+  keyExpr="id"
+  [wordWrapEnabled]="true" 
+  [showBorders]="true"
+  rowHeight="20"
+ 
+  >
+  <dxo-load-panel [enabled]="true"></dxo-load-panel>
+
+  <dxo-scrolling mode="infinite" ></dxo-scrolling>
+  
+  <dxo-header-filter [visible]="true">
+    <dxo-search [enabled]="true"></dxo-search>
+  </dxo-header-filter>
+
+<dxi-column name="tytul" dataField="tytul" width="20%">tytul</dxi-column>
+<dxi-column name="Od" dataField="data"  caption="Od"  dataType="date" format="HH:mm" width="90px">
+ <dxo-sorting></dxo-sorting>
+</dxi-column>
+<dxi-column name="Do" dataField="dataDo" caption="Do" dataType="date" format="HH:mm" width="90px"></dxi-column>
+<dxi-column name="Progress" dataField="Progress" cellTemplate="progressTemplate" width="150px"></dxi-column>
+<dxi-column name="kategoria"  dataField="kategoria" width="100px"></dxi-column>
+
+<dxi-column name="programNazwa" caption="Nazwa" dataField="programNazwa" width="auto">programNazwa</dxi-column>
+<dxi-column name="opis" dataField="opis"  cellTemplate="cellTemplate">programNazwa</dxi-column>
+
+<div *dxTemplate="let data of 'cellTemplate'">
+  <div class="ramkaOpisu">{{data.data.opis}}</div>
+</div>
+
+<div *dxTemplate="let dat of 'progressTemplate'">
+  <app-progress-special [start]='dat.data.data'  [end]='dat.data.dataDo'></app-progress-special>
+</div>
+
+<dxo-toolbar>
+  
+   <dxi-item location="after">
+    <div *dxTemplate>
+      <app-my-lista [lista]="typyProgramow" (newItemEvent)="setFilter($event)"></app-my-lista>
+    </div>
+  </dxi-item>
+  <dxi-item location="after" >
+    <div *dxTemplate>
+      <dx-select-box
+        width="225"
+        [items]="kanaly"
+        [inputAttr]="{ 'aria-label': 'Value' }"
+        displayExpr="programNazwa"
+        valueExpr="id"
+        value="selectedKanal"
+        (onValueChanged)="programChanged($event)">
+      </dx-select-box>
+    </div>
+  </dxi-item>
+  
+  <dxi-item location="after">
+    <div *dxTemplate>
+      <dx-button icon="refresh" (onClick)="refreshData()"> </dx-button>
+    </div>
+  </dxi-item>
+  <dxi-item name="columnChooserButton" ></dxi-item>
+</dxo-toolbar>
+
+
+</dx-data-grid>
+  
+</div>
+</div>
+

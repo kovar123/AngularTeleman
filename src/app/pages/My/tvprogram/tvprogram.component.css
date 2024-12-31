@@ -1,0 +1,48 @@
+::ng-deep #gridContainer {
+    height: 780px;
+  }
+
+.ramkaOpisu {
+  
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 4em;
+  padding: 0px;
+  margin: 0px;
+
+
+/*   display: ;  
+white-space: nowrap;
+  height: 40px;
+    padding: 0px;
+    margin: 0px;
+    text-wrap: auto;
+    
+    white-space: wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+ */
+    /* border: blueviolet 1px solid; */
+    
+  }
+  
+  ::ng-deep #progress-button {
+    margin-bottom: 20px;
+  }
+    ::ng-deep #progress-bar-status {
+    display: inline-block;
+    padding-top: 8px;
+  }
+  
+  ::ng-deep .complete .dx-progressbar-range {
+    background-color: green;
+  }
+  
+  ::ng-deep .dx-row.dx-data-row {
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+  

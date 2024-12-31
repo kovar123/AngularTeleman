@@ -1,0 +1,18 @@
+<div>
+<!--       <dx-radio-group
+        [items]="lista"
+        value="ids"
+        layout="horizontal"
+        [value]="selectionId"
+        (onValueChanged)="onValueChanged($event)"
+      >
+      </dx-radio-group>
+ -->
+       <dx-button-group
+      [items]="lista"
+      keyExpr="ids"
+      stylingMode="outlined"
+      (onItemClick)="itemClick($event)"
+    >
+    </dx-button-group>
+ </div>

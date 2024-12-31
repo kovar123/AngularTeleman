@@ -1,0 +1,19 @@
+::ng-deep .danger {
+    background-color: red;
+  }
+  
+  ::ng-deep .warning {
+    background-color: yellow;
+  }
+  
+  ::ng-deep  .success {
+    background-color: green;
+  }
+
+  ::ng-deep #prog>.dx-progressbar-range {  
+    background-color: red  
+  }  
+
+  .kolorek{
+    background-color: green; 
+  }

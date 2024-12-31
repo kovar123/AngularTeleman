@@ -1,0 +1,17 @@
+<div class="form">
+  <div class="dx-fieldset">
+    <div class="dx-field">
+      <div class="dx-field-label">Default mode</div>
+      <div class="dx-field-value">
+        <dx-text-box [(value)]="question"
+          [inputAttr]="{ 'aria-label': 'Name' }"
+        ></dx-text-box>
+      </div>
+    </div>
+  </div>
+  <dx-button text="Small Button" (onClick)="GoAi()" >Start</dx-button>
+</div>
+<div class="rameczka">
+  <dx-html-editor height="400px" [value]="answer"></dx-html-editor>
+</div>
+
