@@ -9,7 +9,7 @@ import { WebSpeechComponent } from './web-speech.component';
 @NgModule({
   declarations: [WebSpeechComponent],
   imports: [
-    CommonModule,WebSpeechComponent
+    CommonModule
 
   ]
 })
