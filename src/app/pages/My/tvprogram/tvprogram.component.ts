@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ProgramTv } from '../../../Services/programTv';
-import { TelemanService } from '../../../Services/teleman.service';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ProgramTv } from '../../../services/programTv';
+import { TelemanService } from '../../../services/teleman.service';
 import { ValueChangedEvent } from 'devextreme/ui/select_box';
-import { KanalTv,DtoUniElement } from '../../../Services/KanalyTv';
+import { KanalTv,DtoUniElement } from '../../../services/KanalyTv';
 import { sortBy, uniqBy } from 'lodash';
+import { DxDataGridComponent } from 'devextreme-angular';
+import { WebSpeechComponent } from '../../../services/speech/speech/web-speech/web-speech.component';
+import { OpenAiGeminiService } from '../../../shared/services/openAi-Gemini.service';
+
 
 @Component({
   selector: 'app-tvprogram',
@@ -12,15 +16,16 @@ import { sortBy, uniqBy } from 'lodash';
   standalone: false,
 })
 
-export class TvprogramComponent implements OnInit {
+export class TvprogramComponent implements OnInit,  AfterViewInit {
+  @ViewChild(DxDataGridComponent, { static: true }) dGrid: DxDataGridComponent | undefined = undefined;
+  @ViewChild(WebSpeechComponent,{ static: false }) webSpeech: WebSpeechComponent | undefined = undefined;
 
-  
   kanaly: KanalTv[] = [];
   programs: ProgramTv[] = [];
 
   listInitialize=true
   typyProgramow:DtoUniElement[]=[]
-  typProgramu: string |null =null;
+  typProgramu: number |null =null;
 
   store: any;
   keyId: any;
@@ -29,14 +34,21 @@ export class TvprogramComponent implements OnInit {
   tvs: any;
   odTeraz: boolean = true;
   totalCount: any;
-  idProgramu: number | null=null;
+  idProgramu: number | null=0;
+  idGrid: any;
+  focusedId: any;
+  maxLength: string|number=10;
+  inputData: string = 'Dane';
+outputData: any;
 
-  constructor(private srv: TelemanService) {
+  constructor(private srv: TelemanService, private geminisrv:OpenAiGeminiService){
+  
+    //#region LADOWANIE DANYCH
+
     srv.GetProgramsList().subscribe((x) => {
       this.kanaly = x;
       this.kanaly.push({id:null,aktywny:true,kod:-1,programNazwa:'-- clear --',myTvNr:-1})
       this.kanaly=sortBy(this.kanaly,"programNazwa")  
-
     })
   }
 
@@ -46,7 +58,7 @@ export class TvprogramComponent implements OnInit {
       this.listInitialize=false
     var dat=uniqBy(data,"idKategorii")
     this.typyProgramow = dat.map(item=>({id:item.idKategorii,ids:item.kategoria,text:item.kategoria,disabled:false}))  
-    this.typyProgramow.push({id:-1,ids:'aaaaaaaaa',text:"-- clear --",disabled:false})
+    this.typyProgramow.push({id:-1,ids:'',text:"-- clear --",disabled:false})
     this.typyProgramow=sortBy(this.typyProgramow,"text")  
     
     }
@@ -54,10 +66,10 @@ export class TvprogramComponent implements OnInit {
 
   } 
 
-  setFilter=($typ:string)=>{
-    if($typ==='-- clear --') this.typProgramu=null
+  setFilter=($typ:number)=>{
+    if($typ>0) this.typProgramu=$typ
     else
-        this.typProgramu=$typ
+      this.typProgramu=null
     this.refreshData()
 
   }
@@ -70,10 +82,58 @@ export class TvprogramComponent implements OnInit {
   refreshData = () => {
     this.srv.GetProgramsQUERY(this.odTeraz,this.typProgramu,this.idProgramu).subscribe((x) =>this.fillData(x));
   };
+  
+  geminiFind() {
+    var question = `struktura danych: 
+      export interface ProgramTv {
+        id:                    number;
+        data:                  Date;    // data i godzina rozpoczęcia programu
+        dataDo:                Date;    // data i godzina zakończenia programu
+        kategoriaOpis:         string;   // opis kategorii programu (np. cat-fil:"film", cat-dok:"dokument", cat-spo:"sport", cat-ser:"serial")
+        opis:                  string;   // opis treści programu 
+        powiadom:              boolean;  // czy program ma być powiadomiony
+        programNazwa:          string;   // nazwa programu np
+        tytul:                 string;    // zawiera tytuł programu
+        kanalytvId:            number;
+        idKategorii:           number;
+        status:                number;
+        produkcja:             string;
+        typProgramu:           number;
+        alertLevel:            null;
+        idKategoriiNavigation: null;
+        kanalytv:              null;
+    }
+    
+    celem jest na podstawie zadanego pytania zbudowanie kolekcji filtrów do danych
+    
+    przykładowe pytanie:
+    "pokaz mi wszystkie programy z kategorii film w godzinach 20-22"
+    `
+    this.geminisrv.fetchAnswer(question).then(x => this.outputData = x)
+}
+
+//#endregion
+
+  showAlert=():void=>{
+    alert(this.focusedId)
+  }
 
   ngOnInit() {
-    this.refreshData();
   }
+
+  ngAfterViewInit() {
+    this.refreshData();
+    this.idGrid= this.dGrid?.instance;
+    this.webSpeech?.SetupComponents(this.idGrid,this.showAlert)
+    
+  }
+
+  resetGrid() {
+    this.idGrid.searchByText('')
+ }
+  
+
+
 
   format(ratio: any) {
     return `Loading: ${ratio * 100}%`;
@@ -87,4 +147,13 @@ export class TvprogramComponent implements OnInit {
     this.refreshData();
   };
 
+
+
+
+
 }
+
+
+
+
+

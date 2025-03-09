@@ -1,8 +1,10 @@
-<dx-progress-bar 
-  [value]="value"
+<span>{{prepareTopLabel()}}</span>
+<div *ngIf="progressVisible">
+<dx-progress-bar  [visible]="progressVisible"
   [max]="maxValue"
   [showStatus]="true"
   [statusFormat]="opisCaption"
   (onInitialized)="onInitialize($event)"
   >
 </dx-progress-bar>
+</div>

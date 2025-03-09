@@ -11,7 +11,7 @@ export class OpenAiGeminiService {
   private genAi=genAi.getGenerativeModel({ model: "gemini-1.5-flash" })
   
   async fetchAnswer(question:string):Promise<string>{
-    let prompt=question+'Convert the answer'
+    let prompt=question+',odpowiedz po polsku'
     const result = await this.genAi.generateContent(prompt)
     const response= await result.response
     const answer= response.text()

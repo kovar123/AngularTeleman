@@ -1,0 +1,14 @@
+
+#vidok01{
+  width: 100px;
+  height: 10px;
+
+  
+   
+ /* visibility: hidden; */
+
+}
+.container{
+  display: inline-flexbox;
+  flex-direction: row;
+}

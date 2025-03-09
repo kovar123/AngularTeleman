@@ -1,0 +1,75 @@
+<dx-scheduler
+  [dataSource]="appointmentsData"
+  [views]="['timelineDay', 'timelineWeek', 'timelineWorkWeek', 'timelineMonth']"
+  currentView="timelineDay"
+  [firstDayOfWeek]="0"
+  [startDayHour]="8"
+  [endDayHour]="24"
+  [cellDuration]="60"
+  [groups]="['programNazwa']"
+  [currentDate]="currentDate"
+  [height]="'90vh'"
+  [crossScrollingEnabled]="true"
+  
+>
+<!-- appointmentTooltipTemplate="tooltip-template" -->
+<dxo-editing [allowAdding]="false"></dxo-editing>
+<dxi-resource
+  fieldExpr="kod"
+  [allowMultiple]="true"
+  [dataSource]="kanaly"
+label="programNazwa"
+></dxi-resource>
+
+<!-- <dxi-resource fieldExpr="theatreId" [dataSource]="kanaly"></dxi-resource> -->
+
+<!-- 
+
+<div *dxTemplate="let model of 'appointment-template'">
+  <div class="showtime-preview">
+    <div>{{
+      (getProgramById | apply : model.appointmentData.movieId : this).text
+    }}</div>
+    <div
+      >Ticket Price:
+      <strong>{{ "$" + model.targetedAppointmentData.price }}</strong>
+    </div>
+    <div class="dropdown-appointment-dates">
+      {{
+        (model.targetedAppointmentData.displayStartDate
+          | date : "shortTime") +
+          " - " +
+          (model.targetedAppointmentData.displayEndDate | date : "shortTime")
+      }}
+    </div>
+  </div>
+</div>
+ -->
+<!-- 
+<div *dxTemplate="let model of 'tooltip-template'">
+  <ng-container
+  *ngIf="getProgramById | apply : model.this.programs as elem"
+>
+  <div class="movie-tooltip">
+    
+    <div class="movie-info">
+      <div class="movie-title">
+        {{ elem.opis}}
+      </div>
+    </div>
+  </div>
+</ng-container>
+</div>
+
+
+
+
+   <dxi-resourc
+    fieldExpr="ownerId"
+    [allowMultiple]="true"
+    [dataSource]="resourcesData"
+    label="Owner"
+    [useColorAsDefault]="true"
+  ></dxi-resource> -->
+
+</dx-scheduler>

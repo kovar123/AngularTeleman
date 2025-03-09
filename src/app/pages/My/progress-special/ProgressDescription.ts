@@ -9,8 +9,7 @@ export class ConvertProgress{
     Value: number=0;
     Text:string='';
     Color:string='success'
-    
-
+    progressVisible:boolean=false;
 
     constructor(dStart:Date | null,dEnd:Date | null,dPoint:Date) {
         this.mStart=moment(dStart)
@@ -31,6 +30,7 @@ export class ConvertProgress{
              this.Value=Math.round(doTeraz.asMinutes());
              this.FormatDuration(doTeraz,okres,this.trwanie);
              this.Color='warning'
+             this.progressVisible=true;
              break;
              case -1:// przed
 

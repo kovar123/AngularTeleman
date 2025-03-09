@@ -2,37 +2,28 @@ export const navigation = [
   {
     text: 'Home',
     path: '/home',
-    icon: 'home'
-  },
-  {
-    text: 'Examples',
-    icon: 'folder',
+    icon: 'home',
     items: [
       {
-        text: 'Profile',
-        path: '/profile'
+        text: 'Grid TV',
+        path: '/programs',
+        icon: 'doc',
       },
       {
-        text: 'Tasks',
-        path: '/tasks'
-      }
-      ,
+        text: 'Kalendarz',
+        path: '/events',
+        icon: 'doc',
+      },
       {
-        text: 'Programy',
-        path: '/programs'
+        text: 'gemini=Test',
+        path: '/gemini',
+        icon: 'doc',
       }
-      ,
-      {
-        text: 'ProgramyOpenAI',
-        path: '/openAiTest'
-      }
-      ,
-      {
-        text: 'Test Mowy',
-        path: '/speechTest'
-      }
-
-      
     ]
   }
 ];
+
+
+     
+     
+

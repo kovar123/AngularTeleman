@@ -15,13 +15,11 @@ import { ValueChangedEvent } from 'devextreme/ui/radio_group';
 })
 export class MyListaComponent implements OnInit {
   @Input() lista:any[]=[];
-  @Output() newItemEvent = new EventEmitter<string>();
+  @Output() newItemEvent = new EventEmitter<number>();
  
-
-
 itemClick(e: ItemClickEvent) {
   // notify({ message: `The "${e.itemData.text}" button was clicked`, width: 320 }, 'error', 1000);
-  this.newItemEvent.emit(e.itemData.text);
+  this.newItemEvent.emit(e.itemData.id);
   
 
 }

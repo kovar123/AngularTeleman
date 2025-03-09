@@ -1,48 +1,40 @@
 ::ng-deep #gridContainer {
-    height: 780px;
-  }
-
-.ramkaOpisu {
-  
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-height: 4em;
-  padding: 0px;
-  margin: 0px;
-
-
-/*   display: ;  
-white-space: nowrap;
-  height: 40px;
-    padding: 0px;
-    margin: 0px;
-    text-wrap: auto;
-    
-    white-space: wrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
- */
-    /* border: blueviolet 1px solid; */
-    
-  }
-  
-  ::ng-deep #progress-button {
-    margin-bottom: 20px;
-  }
-    ::ng-deep #progress-bar-status {
-    display: inline-block;
-    padding-top: 8px;
-  }
-  
-  ::ng-deep .complete .dx-progressbar-range {
-    background-color: green;
-  }
-  
-  ::ng-deep .dx-row.dx-data-row {
-    padding: 0px;
-    margin: 0px;
-    
+  height: 780px;
 }
 
-  
+::ng-deep #opak .dx-grid .dx-row > td {
+  padding: 3px;
+}
+.smallGrid{
+  padding: 0px;
+}
+
+::ng-deep .dx-datagrid .dx-data-row .dx-datagrid-text-content {
+  font-family: 'Arial', sans-serif;  /* Zmieniamy rodzinę czcionek */
+  font-size: 14px;                   /* Rozmiar czcionki */
+  color: green;                      /* Kolor tekstu */
+}
+
+/* Zmieniamy styl dla komórek w kolumnie "name" */
+::ng-deep .dx-datagrid .dx-data-row .dx-datagrid-text-content[name='tytul'] {
+  font-weight: bold !important;
+  color: blue !important;   
+
+}
+
+
+
+::ng-deep  .dx-datagrid .dx-row > td {
+  padding: 2px !important;
+}
+
+.ramkaOpisu {
+    max-height: 3em;
+    border: rebeccapurple 1px solid;
+    background-color: chartreuse;
+    white-space: nowrap;
+    text-wrap: auto;
+    overflow: hidden;
+    display: inline-table;
+    text-overflow: ellipsis;
+}

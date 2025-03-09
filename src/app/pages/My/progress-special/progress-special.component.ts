@@ -1,8 +1,10 @@
-import { Component, OnInit, NgModule, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import moment, { Moment } from 'moment';
 import 'moment/locale/pl';
 import { ConvertProgress } from './ProgressDescription';
 import { DxProgressBarTypes } from "devextreme-angular/ui/progress-bar"
+
+
 
 @Component({
   selector: 'app-progress-special',
@@ -21,6 +23,7 @@ export class ProgressSpecialComponent implements OnInit {
   value: any;
   visible: boolean = true;
   opis: string = '';
+  progressVisible: boolean=true;
 
   onInitialize(e:DxProgressBarTypes.InitializedEvent ) {
     //var s=e.component?.$
@@ -36,6 +39,7 @@ export class ProgressSpecialComponent implements OnInit {
     this.opis = c.GetDescription();
     this.maxValue = c.MaxValue;
     this.value = c.Value;
+    this.progressVisible=c.progressVisible;
   }
 
   opisCaption = (x: number) => {
@@ -48,5 +52,12 @@ export class ProgressSpecialComponent implements OnInit {
     //   color='warning';
     // }
     return 'danger';
+  };
+
+  
+   prepareTopLabel = (): string => {
+    return `${moment(this.start).format('HH:mm')}-${moment(this.end).format('HH:mm')}`;
+    
+  
   };
 }

@@ -1,0 +1,31 @@
+<div class="container">
+  
+<div *ngIf="listening$ | async; else notListening">
+  <dx-button *ngIf="listening$" text="Zatrzymaj" (onClick)="resetSpeech()" ></dx-button>
+</div>
+<ng-template #notListening>
+  <dx-button *ngIf="listening$" text="Słuchaj" (onClick)="speechStart()" ></dx-button>
+</ng-template>
+<div id="vidok01" *ngIf="transcript$ | async" class="notification">"{{totalTranscript }}"</div>
+</div>
+<dx-popup
+    [width]="300"
+    [height]="280"
+    [showTitle]="true"
+    title="Information"
+    [dragEnabled]="false"
+    [hideOnOutsideClick]="true"
+    [showCloseButton]="true"
+    container=".dx-viewport"
+    [(visible)]="popupVisible"
+  >
+
+    <dxo-position at="center" my="center" [of]="positionOf" collision="fit">
+    </dxo-position>
+    <div *dxTemplate="let data of 'content'">
+      <p>
+        Full Name:
+          </p>
+    </div>
+  </dx-popup>
+
