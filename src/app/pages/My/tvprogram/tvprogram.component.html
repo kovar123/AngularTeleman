@@ -2,8 +2,7 @@
   <span>
     <div class="textarea-wrapper">
       <dx-text-area
-        
-        [(value)]="inputData"
+                [(value)]="inputData"
         [autoResizeEnabled]="true"
         [inputAttr]="{ 'aria-label': 'Notes' }"
       >
@@ -33,18 +32,13 @@
     <dxo-search [enabled]="true"></dxo-search>
   </dxo-header-filter>
 
-  <dxo-search-panel
-  [visible]="true"
-  
-  placeholder="Search..."
-  location="before"
-></dxo-search-panel>
+  <dxo-search-panel [visible]="true" width="240" placeholder="szukaj..." location="before"></dxo-search-panel>
 
 
 
-<dxi-column name="tytul" dataField="tytul" width="20%" style="white-space:break-spaces;" >tytul</dxi-column>
+<dxi-column name="tytul" dataField="tytul" width="20%" cellTemplate="nameTempl" >tytul</dxi-column>
 <dxi-column name="Od" dataField="data"  caption="Od"  dataType="date" format="HH:mm" width="90px">
- <dxo-sorting></dxo-sorting>
+  <dxo-sorting></dxo-sorting>
 </dxi-column>
 <dxi-column name="Do" dataField="dataDo" caption="Do" dataType="date" format="HH:mm" width="90px"></dxi-column>
 <dxi-column name="Progress" dataField="Progress" cellTemplate="progressTemplate" width="150px"></dxi-column>
@@ -55,6 +49,9 @@
 
 <div *dxTemplate="let data of 'opisTempl'">
   <div class="ramkaOpisu">{{data.data.opis}}</div>
+</div>
+<div *dxTemplate="let data of 'nameTempl'">
+  <div class="ramkaOpisu title-font">{{data.data.tytul}}</div>
 </div>
 
 <div *dxTemplate="let dat of 'progressTemplate'">
