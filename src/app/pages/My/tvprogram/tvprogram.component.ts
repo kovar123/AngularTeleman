@@ -9,6 +9,7 @@ import { WebSpeechComponent } from '../../../services/speech/speech/web-speech/w
 import { OpenAiGeminiService } from '../../../shared/services/openAi-Gemini.service';
 
 
+
 @Component({
   selector: 'app-tvprogram',
   templateUrl: './tvprogram.component.html',
@@ -39,7 +40,10 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
   focusedId: any;
   maxLength: string|number=10;
   inputData: string = 'Dane';
-outputData: any;
+  outputData: any;
+  popupVisible: boolean = false;
+  iframeSrc='https://www.teleman.pl/tv/Polska-z-Gory-2-Wzdluz-Gor-Swietokrzyskich-13-1848048';
+  viewInfo=()=>{this.popupVisible=true}
 
   constructor(private srv: TelemanService, private geminisrv:OpenAiGeminiService){
   
@@ -147,9 +151,9 @@ outputData: any;
     this.refreshData();
   };
 
-
-
-
+  vievPopupInfo() {
+    this.popupVisible=true
+  }
 
 }
 

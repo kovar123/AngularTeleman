@@ -13,6 +13,7 @@ import { MyListaComponent } from './pages/My/my-lista/my-lista.component';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { SpeechModule } from './services/speech/speech/speech.module';
 import { MyScheduleComponent } from './pages/My/my-schedule/my-schedule.component';
+import { SafeUrlPipe } from "./services/common/safe-url.pipe";
 
 
 
@@ -57,11 +58,11 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { useHash: true }),
-    DxDataGridModule, DxSelectBoxModule, DxFormModule,AsyncPipe,DxPopupModule,DxSchedulerModule,
+    DxDataGridModule, DxSelectBoxModule, DxFormModule, AsyncPipe, DxPopupModule, DxSchedulerModule,
     DxButtonModule, DxProgressBarModule, DxSwitchModule, DxTextBoxModule, DxTextAreaModule,
-    MyListaComponent,SpeechModule,DxHtmlEditorModule,NgIf
-    
-  ],
+    MyListaComponent, SpeechModule, DxHtmlEditorModule, NgIf,
+    SafeUrlPipe
+],
   providers: [AuthGuardService ],
   exports: [RouterModule],
   

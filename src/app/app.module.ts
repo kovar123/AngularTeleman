@@ -9,7 +9,7 @@ import { AuthService, ScreenService, AppInfoService } from './shared/services';
 import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
-
+import { SafeUrlPipe } from './services/common/safe-url.pipe';
 
 
 
@@ -31,7 +31,7 @@ import { CommonModule } from '@angular/common';
     ChangePasswordFormModule,
     LoginFormModule,
     UnauthenticatedContentModule,
-    AppRoutingModule,
+    AppRoutingModule,SafeUrlPipe
   ],
   providers: [
     AuthService,

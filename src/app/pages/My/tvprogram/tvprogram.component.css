@@ -29,16 +29,15 @@
 }
 
 .ramkaOpisu {
-    max-height: 1em;
+    max-height: 2.5em;
     white-space: nowrap;
     text-wrap: auto;
     overflow: hidden;
-    display: inline-table;
+    display: flow;
     text-overflow: ellipsis;
 }
 .title-font {
-  padding-left: 20px !important;
   font-size: 18px;
   font-weight: bold;
-  color: navy;
+
 }

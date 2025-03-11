@@ -1,11 +1,8 @@
   <div>
   <span>
     <div class="textarea-wrapper">
-      <dx-text-area
-                [(value)]="inputData"
-        [autoResizeEnabled]="true"
-        [inputAttr]="{ 'aria-label': 'Notes' }"
-      >
+      <dx-text-area [(value)]="inputData" [autoResizeEnabled]="true"
+        [inputAttr]="{ 'aria-label': 'Notes' }"  >
       </dx-text-area>
     </div>
     <dx-button text="szukaj"   (onClick)="geminiFind()"></dx-button>
@@ -22,7 +19,7 @@
   </span>
 
 
-  <dx-data-grid  width="100%" height="750"  id="tvGrid" class="smallGrid"  keyExpr="id"  [dataSource]="tvs"  [focusedRowEnabled]="true" [focusedRowKey]="focusedId" >
+  <dx-data-grid  width="100%" height="700px"  id="tvGrid" class="smallGrid"  keyExpr="id"  [dataSource]="tvs"  [focusedRowEnabled]="true" [focusedRowKey]="focusedId" >
    keyExpr="id"  [dataSource]="tvs"  [focusedRowEnabled]="true" [focusedRowKey]="focusedId" >
   
    <dxo-load-panel [enabled]="true"></dxo-load-panel>
@@ -37,21 +34,25 @@
 
 
 <dxi-column name="tytul" dataField="tytul" width="20%" cellTemplate="nameTempl" >tytul</dxi-column>
-<dxi-column name="Od" dataField="data"  caption="Od"  dataType="date" format="HH:mm" width="90px">
+<dxi-column name="Od" dataField="data"  caption="Od"  dataType="date" format="HH:mm" width="70px">
   <dxo-sorting></dxo-sorting>
 </dxi-column>
-<dxi-column name="Do" dataField="dataDo" caption="Do" dataType="date" format="HH:mm" width="90px"></dxi-column>
+<dxi-column name="Do" dataField="dataDo" caption="Do" dataType="date" format="HH:mm" width="70px"></dxi-column>
 <dxi-column name="Progress" dataField="Progress" cellTemplate="progressTemplate" width="150px"></dxi-column>
 <dxi-column name="kategoria"  dataField="kategoria" width="100px"></dxi-column>
-
+<dxi-column dataField="kategoriaOpis" width="150px"></dxi-column>
 <dxi-column dataField="programNazwa" width="auto">programNazwa</dxi-column>
-<dxi-column name="opis" dataField="opis"  cellTemplate="opisTempl">programNazwa</dxi-column>
+<dxi-column name="opis" dataField="opis"  cellTemplate="opisTempl" >programNazwa</dxi-column>
+<dxi-column name="Prod" dataField="produkcja" width="120px" ></dxi-column>
 
 <div *dxTemplate="let data of 'opisTempl'">
   <div class="ramkaOpisu">{{data.data.opis}}</div>
 </div>
+
 <div *dxTemplate="let data of 'nameTempl'">
-  <div class="ramkaOpisu title-font">{{data.data.tytul}}</div>
+  <div class="ramkaOpisu title-font">
+    <a target="_blank" href="https://www.teleman.pl{{data.data.link}}">{{data.data.tytul}}</a>
+  </div>
 </div>
 
 <div *dxTemplate="let dat of 'progressTemplate'">
@@ -102,6 +103,12 @@
 
 </dx-data-grid>
   
+
+
+<dx-popup [(visible)]="popupVisible" [closeOnOutsideClick]="true" [width]="800" [height]="600" [showTitle]="true" title="Podgląd strony">
+  <div *dxTemplate="let data of 'content'">
+    <iframe [src]="iframeSrc | safeUrl" width="100%" height="100%"></iframe>
+  </div>
+</dx-popup>
+
 </div>
-
-
