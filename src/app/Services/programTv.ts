@@ -26,7 +26,7 @@ export interface ProgramTv {
     alertLevel:            null;
     idKategoriiNavigation: null;
     kanalytv:              null;
-    
+
 }
 
 export enum Kategoria {
@@ -40,7 +40,7 @@ export enum Kategoria {
 
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
-export class Convert {
+export class ConvertTV {
     public static toProgramTv(json: string): ProgramTv[] {
         return cast(JSON.parse(json), a(r("ProgramTv")));
     }
@@ -48,6 +48,24 @@ export class Convert {
     public static programTvToJson(value: ProgramTv[]): string {
         return JSON.stringify(uncast(value, a(r("ProgramTv"))), null, 2);
     }
+
+    public static ColorizeRow(prg:ProgramTv): string {
+        var color = "white"
+        if(prg.kategoria==Kategoria.CatDok) return "rgba(8, 111, 228, 0.65)"
+        if(prg.kategoria==Kategoria.CatFil) color="rgba(217, 228, 8, 0.77)"
+        if(prg.kategoria==Kategoria.CatRoz) return "red"
+        if(prg.kategoria==Kategoria.CatSer) color= "yellow"
+        if(prg.kategoria==Kategoria.CatSpo) return "lightGreen"
+        if(prg.kategoria==Kategoria.CatXxx) return "rgba(5, 84, 145, 0.28)"
+        
+        
+        if(prg.kategoriaOpis.includes("komedi")) color= "rgba(245, 225, 0, 0.33)"
+        if(prg.kategoriaOpis.includes("dramat")) color= "rgba(145, 5, 108, 0.25)"
+        if(prg.kategoriaOpis.includes("horror")) color= "rgba(145, 5, 108, 0.55)"
+        return color
+    }
+
+
 }
 
 function invalidValue(typ: any, val: any, key: any, parent: any = ''): never {

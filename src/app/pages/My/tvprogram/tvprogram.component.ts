@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ProgramTv } from '../../../services/programTv';
+import { ConvertTV, ProgramTv } from '../../../services/programTv';
 import { TelemanService } from '../../../services/teleman.service';
 import { ValueChangedEvent } from 'devextreme/ui/select_box';
 import { KanalTv,DtoUniElement } from '../../../services/KanalyTv';
@@ -153,6 +153,11 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
 
   vievPopupInfo() {
     this.popupVisible=true
+  }
+
+  onRowPrepared(e:any) {
+    if (e.rowType === 'data') 
+      e.rowElement.style.backgroundColor = ConvertTV.ColorizeRow(e.data);     ;
   }
 
 }

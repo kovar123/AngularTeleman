@@ -1,6 +1,8 @@
-::ng-deep #gridContainer {
-  height: 780px;
+::ng-deep #tvGrid {
+  padding-left: 20px;
+  padding-right: 20px;
 }
+
 
 ::ng-deep #opak .dx-grid .dx-row > td {
   padding: 3px;
@@ -36,8 +38,12 @@
     display: flow;
     text-overflow: ellipsis;
 }
-.title-font {
-  font-size: 18px;
+::ng-deep .title-font {
+  font-size: 16px;
   font-weight: bold;
+  
+}
 
+::ng-deep .ramkaOpisu> a {
+  color:black
 }
