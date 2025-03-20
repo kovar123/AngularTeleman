@@ -12,6 +12,8 @@ import { defaultLanguage, languages } from '../model/languages';
 import notify from 'devextreme/ui/notify';
 import { SpeechSynthesizerService } from '../web-apis/speech-synthesizer.service';
 import { DxDataGridComponent } from 'devextreme-angular';
+import { bootstrapXbox } from '@ng-icons/bootstrap-icons';
+
 
 @Component({
   selector: 'speech-comp',

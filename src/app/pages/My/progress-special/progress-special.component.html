@@ -1,10 +1,14 @@
+<div><div class="progressBar">
 <span>{{prepareTopLabel()}}</span>
-<div *ngIf="progressVisible">
-<dx-progress-bar  [visible]="progressVisible"
+<div *ngIf="progressVisible" >
+<dx-progress-bar  [visible]="progressVisible" 
   [max]="maxValue"
   [showStatus]="true"
   [statusFormat]="opisCaption"
   (onInitialized)="onInitialize($event)"
+  [value]="value"
   >
 </dx-progress-bar>
+</div>
+</div>
 </div>

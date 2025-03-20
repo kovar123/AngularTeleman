@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TelemanService } from '../../../services/teleman.service';
 import { ProgramTv } from '../../../services/programTv';
 import { Appointment } from '../../../Interfaces/Appointment';
-import { KanalTv } from '../../../services/KanalyTv';
+import { KanalTv } from '../../../services/TvInterfaces';
 import { sortBy, uniqBy } from 'lodash';
 import Query from 'devextreme/data/query';
 

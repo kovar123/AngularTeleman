@@ -1,6 +1,7 @@
 ::ng-deep #tvGrid {
   padding-left: 20px;
   padding-right: 20px;
+  
 }
 
 
@@ -31,6 +32,7 @@
 }
 
 .ramkaOpisu {
+    height: 2.5em;
     max-height: 2.5em;
     white-space: nowrap;
     text-wrap: auto;

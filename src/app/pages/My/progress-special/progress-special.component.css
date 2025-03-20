@@ -17,3 +17,8 @@
   .kolorek{
     background-color: green; 
   }
+
+  /* ::ng-deep.progressBar{
+    border: 1px solid #000;
+  }
+   */

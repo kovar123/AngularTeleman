@@ -51,17 +51,19 @@ export class ConvertTV {
 
     public static ColorizeRow(prg:ProgramTv): string {
         var color = "white"
-        if(prg.kategoria==Kategoria.CatDok) return "rgba(8, 111, 228, 0.65)"
+        if(prg.kategoria==Kategoria.CatDok) color= "rgba(8, 111, 228, 0.65)"
         if(prg.kategoria==Kategoria.CatFil) color="rgba(217, 228, 8, 0.77)"
-        if(prg.kategoria==Kategoria.CatRoz) return "red"
+        if(prg.kategoria==Kategoria.CatRoz) color="rgb(228, 188, 8)"
         if(prg.kategoria==Kategoria.CatSer) color= "yellow"
-        if(prg.kategoria==Kategoria.CatSpo) return "lightGreen"
-        if(prg.kategoria==Kategoria.CatXxx) return "rgba(5, 84, 145, 0.28)"
+        if(prg.kategoria==Kategoria.CatSpo) color= "rgba(9, 222, 2, 0.82)"
+        if(prg.kategoria==Kategoria.CatXxx) color= "rgba(5, 84, 145, 0.28)"
         
         
         if(prg.kategoriaOpis.includes("komedi")) color= "rgba(245, 225, 0, 0.33)"
         if(prg.kategoriaOpis.includes("dramat")) color= "rgba(145, 5, 108, 0.25)"
         if(prg.kategoriaOpis.includes("horror")) color= "rgba(145, 5, 108, 0.55)"
+        if(prg.kategoriaOpis.includes("przygodowy")) color= "rgba(8, 111, 228, 0.32)"
+        
         return color
     }
 

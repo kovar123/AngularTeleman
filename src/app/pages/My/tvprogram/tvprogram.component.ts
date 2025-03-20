@@ -2,11 +2,13 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { ConvertTV, ProgramTv } from '../../../services/programTv';
 import { TelemanService } from '../../../services/teleman.service';
 import { ValueChangedEvent } from 'devextreme/ui/select_box';
-import { KanalTv,DtoUniElement } from '../../../services/KanalyTv';
+import { KanalTv,DtoUniElement } from '../../../services/TvInterfaces';
 import { sortBy, uniqBy } from 'lodash';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { WebSpeechComponent } from '../../../services/speech/speech/web-speech/web-speech.component';
 import { OpenAiGeminiService } from '../../../shared/services/openAi-Gemini.service';
+import { interval } from 'rxjs';
+
 
 
 
@@ -18,6 +20,13 @@ import { OpenAiGeminiService } from '../../../shared/services/openAi-Gemini.serv
 })
 
 export class TvprogramComponent implements OnInit,  AfterViewInit {
+
+  switchValueChanged($event: any) {
+  this.odTeraz=$event.value
+  this.refreshData()
+}
+
+
   @ViewChild(DxDataGridComponent, { static: true }) dGrid: DxDataGridComponent | undefined = undefined;
   @ViewChild(WebSpeechComponent,{ static: false }) webSpeech: WebSpeechComponent | undefined = undefined;
 
@@ -27,7 +36,7 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
   listInitialize=true
   typyProgramow:DtoUniElement[]=[]
   typProgramu: number |null =null;
-
+  autoRefreschSwitch: boolean= false;
   store: any;
   keyId: any;
   maxValue = 200;
@@ -44,6 +53,7 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
   popupVisible: boolean = false;
   iframeSrc='https://www.teleman.pl/tv/Polska-z-Gory-2-Wzdluz-Gor-Swietokrzyskich-13-1848048';
   viewInfo=()=>{this.popupVisible=true}
+ 
 
   constructor(private srv: TelemanService, private geminisrv:OpenAiGeminiService){
   
@@ -69,6 +79,11 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
     this.tvs = data
 
   } 
+
+    
+
+   
+
 
   setFilter=($typ:number)=>{
     if($typ>0) this.typProgramu=$typ
@@ -129,6 +144,9 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
     this.refreshData();
     this.idGrid= this.dGrid?.instance;
     this.webSpeech?.SetupComponents(this.idGrid,this.showAlert)
+    interval(60000).subscribe(() => {
+      this.refreshData();
+    });
     
   }
 
@@ -159,6 +177,13 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
     if (e.rowType === 'data') 
       e.rowElement.style.backgroundColor = ConvertTV.ColorizeRow(e.data);     ;
   }
+
+  GetData() {
+    this.srv.FetchPrograms().subscribe(() => {
+      this.refreshData();
+      });
+    }
+  
 
 }
 

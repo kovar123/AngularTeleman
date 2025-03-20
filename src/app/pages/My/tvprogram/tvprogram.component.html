@@ -1,5 +1,5 @@
 <div>
-   <!-- <span>
+  <!-- <span>
     <div class="textarea-wrapper">
       <dx-text-area [(value)]="inputData" [autoResizeEnabled]="true"
         [inputAttr]="{ 'aria-label': 'Notes' }"  >
@@ -8,7 +8,6 @@
     <dx-button text="szukaj"   (onClick)="geminiFind()"></dx-button>
     <div class="textarea-wrapper">
       <dx-text-area
-        
         [(value)]="outputData"
         [autoResizeEnabled]="true"
         [inputAttr]="{ 'aria-label': 'Notes' }"
@@ -17,12 +16,12 @@
     </div>
   </span> -->
 
-
-  <dx-data-grid  id="tvGrid" class="smallGrid"  keyExpr="id" height="800" 
+  
+  <dx-data-grid  id="tvGrid" class="smallGrid"  keyExpr="id" [height]="'880px'"
   [dataSource]="tvs"  [focusedRowEnabled]="true" [focusedRowKey]="focusedId" (onRowPrepared)="onRowPrepared($event)">
    keyExpr="id"  [dataSource]="tvs"  [focusedRowEnabled]="true" [focusedRowKey]="focusedId" >
   
-   <dxo-load-panel [enabled]="true"></dxo-load-panel>
+  <dxo-load-panel [enabled]="true"></dxo-load-panel>
   <dxo-scrolling mode="infinite" ></dxo-scrolling>
 
   <dxo-header-filter [visible]="true">
@@ -32,8 +31,10 @@
   <dxo-search-panel [visible]="true" width="240" placeholder="szukaj..." location="before"></dxo-search-panel>
 
 
-
 <dxi-column name="tytul" dataField="tytul" width="20%" cellTemplate="nameTempl" >tytul</dxi-column>
+
+<dxi-column name="ico" dataField="pow iadom" width="48" ></dxi-column>
+
 <dxi-column name="Od" dataField="data"  caption="Od"  dataType="date" format="HH:mm" width="70px">
   <dxo-sorting></dxo-sorting>
 </dxi-column>
@@ -63,13 +64,19 @@
   <dxi-item location="before">
     <speech-comp #speech></speech-comp>
   </dxi-item>
+  <dxi-item location="before">
+    <div *dxTemplate>
+      <dx-switch [value]="odTeraz" onText="Pokaż"  offText="Ukryj"  (onValueChanged)="switchValueChanged($event)" ></dx-switch>
+    </div>
 
+  </dxi-item>
 
    <dxi-item location="after">
     <div *dxTemplate>
       <app-my-lista [lista]="typyProgramow" (newItemEvent)="setFilter($event)"></app-my-lista>
     </div>
   </dxi-item>
+
   <dxi-item location="after" >
     <div *dxTemplate>
       <dx-select-box
@@ -92,14 +99,19 @@
 
   <dxi-item location="after">
     <div *dxTemplate>
-      <dx-button icon="reset" (onClick)="resetGrid()"> </dx-button>
+      <dx-button icon="bookmark" (onClick)="resetGrid()"></dx-button>
+    </div>
+  </dxi-item>
+  
+  <dxi-item location="after">
+    <div *dxTemplate>
+      <dx-button icon="cloud-download" (onClick)="GetData()"></dx-button>
     </div>
   </dxi-item>
 
-  <dxi-item name="columnChooserButton" ></dxi-item>
+<dxi-item name="columnChooserButton" ></dxi-item>
   <dxi-item name="searchPanel" locateInMenu="auto"></dxi-item>
 </dxo-toolbar>
-
 
 </dx-data-grid>
   

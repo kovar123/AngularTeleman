@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProgramTv } from './programTv';
 import { Observable } from 'rxjs/internal/Observable';
-import { KanalTv } from './KanalyTv';
-import { EnabledBlockingInitialNavigationFeature } from '@angular/router';
+import { KanalTv } from './TvInterfaces';
+
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,10 @@ export class TelemanService {
     return this.http.get<KanalTv[]>(s); 
   }
 
-  
+  FetchPrograms(): Observable<string> {
+    var s = this.apiUrl + 'Epgprograms/FetchPrograms'
+    return this.http.get<string>(s); 
+  }
 
 }
 

@@ -19,16 +19,12 @@ export class ProgressSpecialComponent implements OnInit {
   before = false;
   minValue: number = 0;
   maxValue: number = 100;
-
-  value: any;
+  value: number=30
   visible: boolean = true;
   opis: string = '';
   progressVisible: boolean=true;
 
   onInitialize(e:DxProgressBarTypes.InitializedEvent ) {
-    //var s=e.component?.$
-    
-//    e.element?.find('.dx-progressbar-range').css({ 'background-color': 'blue' });
   }
 
 
@@ -37,7 +33,7 @@ export class ProgressSpecialComponent implements OnInit {
   ngOnInit() {
     var c = new ConvertProgress(this.start, this.end, new Date());
     this.opis = c.GetDescription();
-    this.maxValue = c.MaxValue;
+    this.maxValue = c.durationMaxMin;
     this.value = c.Value;
     this.progressVisible=c.progressVisible;
   }
