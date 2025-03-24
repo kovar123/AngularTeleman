@@ -26,7 +26,7 @@ export interface ProgramTv {
     alertLevel:            null;
     idKategoriiNavigation: null;
     kanalytv:              null;
-
+    trwanie:               TimeClassyficationEnum;
 }
 
 export enum Kategoria {
@@ -37,6 +37,7 @@ export enum Kategoria {
     CatSpo = "cat-spo",
     CatXxx = "cat-xxx",
 }
+
 
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
@@ -57,18 +58,55 @@ export class ConvertTV {
         if(prg.kategoria==Kategoria.CatSer) color= "yellow"
         if(prg.kategoria==Kategoria.CatSpo) color= "rgba(9, 222, 2, 0.82)"
         if(prg.kategoria==Kategoria.CatXxx) color= "rgba(5, 84, 145, 0.28)"
-        
-        
         if(prg.kategoriaOpis.includes("komedi")) color= "rgba(245, 225, 0, 0.33)"
         if(prg.kategoriaOpis.includes("dramat")) color= "rgba(145, 5, 108, 0.25)"
         if(prg.kategoriaOpis.includes("horror")) color= "rgba(145, 5, 108, 0.55)"
         if(prg.kategoriaOpis.includes("przygodowy")) color= "rgba(8, 111, 228, 0.32)"
-        
+//        this.TrwanieClasyffication(prg)
         return color
     }
+    
+    public static TrwanieClasyffication(prg:ProgramTv): TimeClassyficationEnum {
+        var now = new Date()
+        if(prg.data>now) {
+            prg.trwanie=TimeClassyficationEnum.future
+            return TimeClassyficationEnum.future
+      }
+        if(prg.dataDo<now){
+            prg.trwanie=TimeClassyficationEnum.past
+            return TimeClassyficationEnum.past
+        }
+        prg.trwanie=TimeClassyficationEnum.now
+        return TimeClassyficationEnum.now
 
+    }
+
+    public static getIconName(value: number): string {
+        switch (value) {
+          case 1:
+            return 'star';
+          case 2:
+            return 'heart';
+          case 3:
+            return 'checkmark';
+          case 4:
+            return 'close';
+          default:
+            return 'help'; // Domyślna ikona, jeśli wartość jest poza zakresem 1..4
+        }
+      }
 
 }
+
+export enum TimeClassyficationEnum {
+    future=1,
+    past=2,
+    now=0
+}
+
+
+
+
 
 function invalidValue(typ: any, val: any, key: any, parent: any = ''): never {
     const prettyTyp = prettyTypeName(typ);

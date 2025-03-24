@@ -1,6 +1,7 @@
 <div><div class="progressBar">
 <span>{{prepareTopLabel()}}</span>
-<div *ngIf="progressVisible" >
+<div class="progressBar" *ngIf="progressVisible">
+
 <dx-progress-bar  [visible]="progressVisible" 
   [max]="maxValue"
   [showStatus]="true"

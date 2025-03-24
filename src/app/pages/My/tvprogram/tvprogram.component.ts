@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit,NgModule, Component,OnInit, ViewChild } from '@angular/core';
 import { ConvertTV, ProgramTv } from '../../../services/programTv';
 import { TelemanService } from '../../../services/teleman.service';
 import { ValueChangedEvent } from 'devextreme/ui/select_box';
@@ -8,7 +8,13 @@ import { DxDataGridComponent } from 'devextreme-angular';
 import { WebSpeechComponent } from '../../../services/speech/speech/web-speech/web-speech.component';
 import { OpenAiGeminiService } from '../../../shared/services/openAi-Gemini.service';
 import { interval } from 'rxjs';
-
+import { IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { logoIonic } from 'ionicons/icons';
+import { DxDataGridModule, DxFormModule,  DxPopupModule, DxSchedulerModule, DxSwitchModule, DxTextBoxModule, } from 'devextreme-angular';
+import { DxSelectBoxModule,DxButtonModule, DxTextAreaModule,DxProgressBarModule,DxHtmlEditorModule, } from 'devextreme-angular';
+import { ProgressSpecialComponent } from '../progress-special/progress-special.component';
+import { MyListaComponent } from '../my-lista/my-lista.component';
 
 
 
@@ -16,19 +22,31 @@ import { interval } from 'rxjs';
   selector: 'app-tvprogram',
   templateUrl: './tvprogram.component.html',
   styleUrls: ['./tvprogram.component.css'],
-  standalone: false,
+  standalone: true,
+  imports: [
+     DxDataGridModule,  DxFormModule,  DxPopupModule, DxSchedulerModule,
+    DxDataGridModule,  DxFormModule,  DxPopupModule, DxSchedulerModule,
+    DxButtonModule, DxProgressBarModule, DxSwitchModule, DxTextBoxModule, DxTextAreaModule,
+     DxHtmlEditorModule, DxSelectBoxModule,  MyListaComponent,ProgressSpecialComponent
+    ]
+
 })
 
+
 export class TvprogramComponent implements OnInit,  AfterViewInit {
+
+  customizeCell: any;
 
   switchValueChanged($event: any) {
   this.odTeraz=$event.value
   this.refreshData()
 }
 
-
   @ViewChild(DxDataGridComponent, { static: true }) dGrid: DxDataGridComponent | undefined = undefined;
   @ViewChild(WebSpeechComponent,{ static: false }) webSpeech: WebSpeechComponent | undefined = undefined;
+  
+  nowClassyfication = ConvertTV.TrwanieClasyffication;
+  getIconName = ConvertTV.getIconName;
 
   kanaly: KanalTv[] = [];
   programs: ProgramTv[] = [];
@@ -51,12 +69,12 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
   inputData: string = 'Dane';
   outputData: any;
   popupVisible: boolean = false;
-  iframeSrc='https://www.teleman.pl/tv/Polska-z-Gory-2-Wzdluz-Gor-Swietokrzyskich-13-1848048';
+  
   viewInfo=()=>{this.popupVisible=true}
  
 
   constructor(private srv: TelemanService, private geminisrv:OpenAiGeminiService){
-  
+    addIcons({ logoIonic });
     //#region LADOWANIE DANYCH
 
     srv.GetProgramsList().subscribe((x) => {
@@ -184,10 +202,4 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
       });
     }
   
-
-}
-
-
-
-
-
+  }
