@@ -8,14 +8,13 @@ import { DxDataGridComponent } from 'devextreme-angular';
 import { WebSpeechComponent } from '../../../services/speech/speech/web-speech/web-speech.component';
 import { OpenAiGeminiService } from '../../../shared/services/openAi-Gemini.service';
 import { interval } from 'rxjs';
-import { IonIcon } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { logoIonic } from 'ionicons/icons';
 import { DxDataGridModule, DxFormModule,  DxPopupModule, DxSchedulerModule, DxSwitchModule, DxTextBoxModule, } from 'devextreme-angular';
 import { DxSelectBoxModule,DxButtonModule, DxTextAreaModule,DxProgressBarModule,DxHtmlEditorModule, } from 'devextreme-angular';
 import { ProgressSpecialComponent } from '../progress-special/progress-special.component';
 import { MyListaComponent } from '../my-lista/my-lista.component';
-
+import { IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { analytics, earthSharp,logoGithub,rainyOutline,rocketOutline,analyticsOutline,walkOutline } from 'ionicons/icons';
 
 
 @Component({
@@ -28,6 +27,7 @@ import { MyListaComponent } from '../my-lista/my-lista.component';
     DxDataGridModule,  DxFormModule,  DxPopupModule, DxSchedulerModule,
     DxButtonModule, DxProgressBarModule, DxSwitchModule, DxTextBoxModule, DxTextAreaModule,
      DxHtmlEditorModule, DxSelectBoxModule,  MyListaComponent,ProgressSpecialComponent
+     ,IonIcon,
     ]
 
 })
@@ -74,9 +74,9 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
  
 
   constructor(private srv: TelemanService, private geminisrv:OpenAiGeminiService){
-    addIcons({ logoIonic });
-    //#region LADOWANIE DANYCH
-
+    
+    addIcons({analytics, earthSharp,logoGithub,rainyOutline,rocketOutline,analyticsOutline,walkOutline });
+    
     srv.GetProgramsList().subscribe((x) => {
       this.kanaly = x;
       this.kanaly.push({id:null,aktywny:true,kod:-1,programNazwa:'-- clear --',myTvNr:-1})

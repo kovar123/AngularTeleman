@@ -84,15 +84,15 @@ export class ConvertTV {
     public static getIconName(value: number): string {
         switch (value) {
           case 1:
-            return 'star';
+            return 'analytics';
           case 2:
-            return 'heart';
+            return 'logo-github';
           case 3:
-            return 'checkmark';
+            return 'rainy-outline';
           case 4:
-            return 'close';
+            return 'rocket-outline';
           default:
-            return 'help'; // Domyślna ikona, jeśli wartość jest poza zakresem 1..4
+            return 'walk-outline'; // Domyślna ikona, jeśli wartość jest poza zakresem 1..4
         }
       }
 
