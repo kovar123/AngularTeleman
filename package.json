@@ -24,6 +24,7 @@
     "@google/generative-ai": "^0.21.0",
     "@ng-icons/bootstrap-icons": "^31.2.0",
     "@ng-icons/core": "^31.2.0",
+    "@ng-icons/heroicons": "^31.2.0",
     "@types/dom-speech-recognition": "^0.0.4",
     "bootstrap-icons": "^1.11.3",
     "devextreme": "24.1.4",

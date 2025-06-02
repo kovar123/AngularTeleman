@@ -42,6 +42,7 @@ export class TelemanService {
     return this.http.get<string>(s); 
   }
 
+
 }
 
 

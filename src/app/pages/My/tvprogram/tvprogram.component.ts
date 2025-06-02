@@ -12,23 +12,28 @@ import { DxDataGridModule, DxFormModule,  DxPopupModule, DxSchedulerModule, DxSw
 import { DxSelectBoxModule,DxButtonModule, DxTextAreaModule,DxProgressBarModule,DxHtmlEditorModule, } from 'devextreme-angular';
 import { ProgressSpecialComponent } from '../progress-special/progress-special.component';
 import { MyListaComponent } from '../my-lista/my-lista.component';
-import { NgIconsModule } from '@ng-icons/core';
-import { bootstrap0CircleFill } from '@ng-icons/bootstrap-icons';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroUsers } from '@ng-icons/heroicons/outline';
+import { bootstrapAndroid2,bootstrapTaxiFront,bootstrapBalloonHeartFill,bootstrapEmojiSmileFill } from '@ng-icons/bootstrap-icons';
+
+
 
 @Component({
   selector: 'app-tvprogram',
   templateUrl: './tvprogram.component.html',
   styleUrls: ['./tvprogram.component.css'],
   standalone: true,
-  imports: [
+  imports: [NgIcon,
      DxDataGridModule,  DxFormModule,  DxPopupModule, DxSchedulerModule,
     DxDataGridModule,  DxFormModule,  DxPopupModule, DxSchedulerModule,
     DxButtonModule, DxProgressBarModule, DxSwitchModule, DxTextBoxModule, DxTextAreaModule,
      DxHtmlEditorModule, DxSelectBoxModule,  MyListaComponent,ProgressSpecialComponent,
-     
-     
-    ]
-
+    ],
+    viewProviders: [
+      provideIcons({
+        heroUsers,bootstrapAndroid2,bootstrapTaxiFront,bootstrapBalloonHeartFill,bootstrapEmojiSmileFill
+      }),
+    ],  providers: [TelemanService, OpenAiGeminiService,],
 })
 
 
@@ -45,7 +50,9 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
   @ViewChild(WebSpeechComponent,{ static: false }) webSpeech: WebSpeechComponent | undefined = undefined;
   
   nowClassyfication = ConvertTV.TrwanieClasyffication;
+  refTvStyle = ConvertTV.TrwanieClasyfficationStyle;
   getIconName = ConvertTV.getIconName;
+  
 
   kanaly: KanalTv[] = [];
   programs: ProgramTv[] = [];
@@ -93,13 +100,14 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
     this.typyProgramow=sortBy(this.typyProgramow,"text")  
     
     }
+    data.forEach((program: ProgramTv) => {
+      ConvertTV.ColorizeRow(program);  
+      program.iconName = ConvertTV.getIconName(program.subTypeProgram);
+    })
+    ConvertTV.CheckAlert(data);
     this.tvs = data
 
   } 
-
-    
-
-   
 
 
   setFilter=($typ:number)=>{
@@ -191,8 +199,12 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
   }
 
   onRowPrepared(e:any) {
-    if (e.rowType === 'data') 
-      e.rowElement.style.backgroundColor = ConvertTV.ColorizeRow(e.data);     ;
+    if (e.rowType === 'data') {
+
+      e.rowElement.style.backgroundColor = ConvertTV.ColorizeRow(e.data); 
+
+    }
+    
   }
 
   GetData() {

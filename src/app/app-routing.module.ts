@@ -60,6 +60,8 @@ const routes: Routes = [
     DxButtonModule, DxProgressBarModule, DxSwitchModule, DxTextBoxModule, DxTextAreaModule,
     SpeechModule, DxHtmlEditorModule, NgIf,NgStyle,NgClass,
     SafeUrlPipe,  
+    
+
 ],
   providers: [AuthGuardService ],
   exports: [RouterModule],

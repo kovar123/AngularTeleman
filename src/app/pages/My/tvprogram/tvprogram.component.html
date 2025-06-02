@@ -1,5 +1,7 @@
 
 <div>
+  
+  
   <!-- <span>
     <div class="textarea-wrapper">
       <dx-text-area [(value)]="inputData" [autoResizeEnabled]="true"
@@ -28,12 +30,12 @@
   <dxo-header-filter [visible]="true"><dxo-search [enabled]="true"></dxo-search></dxo-header-filter>
   <dxo-search-panel [visible]="true" width="240" placeholder="szukaj..." location="before"></dxo-search-panel>
 
-<dxi-column name="trwanie" width="50" dataField="typProgramu" ></dxi-column>  
+<dxi-column dataField="typProgramu" width="50" cellTemplate="icoTemplate" caption="ico" ></dxi-column>  
+
 
 <dxi-column name="tytul" dataField="tytul" width="20%" cellTemplate="nameTempl" >tytul</dxi-column>
 <dxi-column name="ico" dataField="powiadom" width="48" ></dxi-column>
-<dxi-column dataField="typProgramu" width="50" cellTemplate="icoTemplate" >
-</dxi-column>  
+
   
 <dxi-column name="Od" dataField="data"  caption="Od"  dataType="date" format="HH:mm" width="70px">
   <dxo-sorting></dxo-sorting>
@@ -51,7 +53,18 @@
 </div>
 
 <div *dxTemplate="let cellInfo of 'icoTemplate'">
-  <ion-icon name="{{getIconName(cellInfo.data.typProgramu)}}" size="large"></ion-icon>
+  
+  <div class="container-ico">
+    <ng-icon name="{{cellInfo.data.iconName}}" size="20px" color="navy" />
+    <div [className]="refTvStyle(cellInfo.data.trwanie)">
+    </div>
+ </div>
+
+</div>
+
+<div *dxTemplate="let cellInfo of 'trwaTemplate'">
+  <div [className]="cellInfo.data.trwanie==0 ? 'trwa-teraz':'trwa-next' "></div>
+  
 </div>
 
 
@@ -61,7 +74,7 @@
 </div>
 
 <div *dxTemplate="let data of 'nameTempl'">
-  <div class="ramkaOpisu title-font">
+  <div class="title-style2">
     <a target="_blank" href="https://www.teleman.pl{{data.data.link}}">{{data.data.tytul}}</a>
   </div>
 </div>

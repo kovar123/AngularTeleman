@@ -7,6 +7,9 @@
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 
+import notify from "devextreme/ui/notify";
+import moment from "moment";
+
 export interface ProgramTv {
     id:                    number;
     data:                  Date;
@@ -27,6 +30,9 @@ export interface ProgramTv {
     idKategoriiNavigation: null;
     kanalytv:              null;
     trwanie:               TimeClassyficationEnum;
+    subTypeProgram:        number;
+    colorProgram:        string;
+    iconName:        string;
 }
 
 export enum Kategoria {
@@ -50,62 +56,89 @@ export class ConvertTV {
         return JSON.stringify(uncast(value, a(r("ProgramTv"))), null, 2);
     }
 
+    public static getIconName(value: number): string {
+        switch (value) {
+          case 1:return 'bootstrapTaxiFront';
+          case 2:return 'heroUsers';
+          case 3:return 'bootstrapBalloonHeartFill';
+          case 16:return 'bootstrapEmojiSmileFill';
+          default:
+            return 'bootstrapEmojiSmileFill'; // Domyślna ikona, jeśli wartość jest poza zakresem 1..4
+        }
+      }
+
     public static ColorizeRow(prg:ProgramTv): string {
         var color = "white"
+        prg.subTypeProgram=1
         if(prg.kategoria==Kategoria.CatDok) color= "rgba(8, 111, 228, 0.65)"
         if(prg.kategoria==Kategoria.CatFil) color="rgba(217, 228, 8, 0.77)"
-        if(prg.kategoria==Kategoria.CatRoz) color="rgb(228, 188, 8)"
+        if(prg.kategoria==Kategoria.CatRoz) {color="rgb(228, 188, 8)",prg.subTypeProgram=3}
         if(prg.kategoria==Kategoria.CatSer) color= "yellow"
-        if(prg.kategoria==Kategoria.CatSpo) color= "rgba(9, 222, 2, 0.82)"
-        if(prg.kategoria==Kategoria.CatXxx) color= "rgba(5, 84, 145, 0.28)"
+        if(prg.kategoria==Kategoria.CatSpo) { color= "rgba(9, 222, 2, 0.82)"; prg.subTypeProgram=2 }
+        if(prg.kategoria==Kategoria.CatXxx) {color= "rgba(5, 84, 145, 0.28)"; prg.subTypeProgram=16 }
         if(prg.kategoriaOpis.includes("komedi")) color= "rgba(245, 225, 0, 0.33)"
         if(prg.kategoriaOpis.includes("dramat")) color= "rgba(145, 5, 108, 0.25)"
         if(prg.kategoriaOpis.includes("horror")) color= "rgba(145, 5, 108, 0.55)"
         if(prg.kategoriaOpis.includes("przygodowy")) color= "rgba(8, 111, 228, 0.32)"
-//        this.TrwanieClasyffication(prg)
+        if(prg.kategoriaOpis.includes("fantasy")) color= "rgba(8, 125, 228, 0.72)"
+        prg.colorProgram=color
+        prg.trwanie=ConvertTV.TrwanieClasyffication(prg)
         return color
     }
     
     public static TrwanieClasyffication(prg:ProgramTv): TimeClassyficationEnum {
-        var now = new Date()
-        if(prg.data>now) {
-            prg.trwanie=TimeClassyficationEnum.future
-            return TimeClassyficationEnum.future
-      }
-        if(prg.dataDo<now){
-            prg.trwanie=TimeClassyficationEnum.past
+        var now1 = moment.now()
+        var start = moment(prg.data).valueOf()
+        var end = moment(prg.dataDo).valueOf()  
+        if(now1>=start && now1<=end){ 
+                    return prg.trwanie=TimeClassyficationEnum.now
+           }   
+        if(start<now1 ){
             return TimeClassyficationEnum.past
         }
-        prg.trwanie=TimeClassyficationEnum.now
-        return TimeClassyficationEnum.now
-
+        const futureTime = moment().add(1, 'hours').valueOf(); // dodaje 1 godziny
+        if(futureTime>=start && futureTime<=end){ 
+            return prg.trwanie=TimeClassyficationEnum.nowNext
+        }   
+        return TimeClassyficationEnum.future
     }
 
-    public static getIconName(value: number): string {
-        switch (value) {
-          case 1:
-            return 'analytics';
-          case 2:
-            return 'logo-github';
-          case 3:
-            return 'rainy-outline';
-          case 4:
-            return 'rocket-outline';
-          default:
-            return 'walk-outline'; // Domyślna ikona, jeśli wartość jest poza zakresem 1..4
+    public static TrwanieClasyfficationStyle(csCode:number):string{
+        switch ((csCode as TimeClassyficationEnum   )) {
+            case TimeClassyficationEnum.now: return "trwa-teraz";
+            case TimeClassyficationEnum.future: return "trwa-Future";
+            case TimeClassyficationEnum.past: return "trwa-Past";
+            case TimeClassyficationEnum.nowNext: return "trwa-zaChwile";
+            default: return "";
         }
-      }
+    }
+
+    public static CheckAlert(progsy: ProgramTv[]):void {
+        var now1 = moment().startOf('minute'); 
+        progsy.forEach((program: ProgramTv) => {
+//            if(program.powiadom){
+                var start = moment(program.data).startOf('minute'); 
+                if(start.isSame(now1)){
+                    const message = 
+                    program.tytul + " - " + program.programNazwa + " (" + program.kategoriaOpis + ")";
+                    const type = "info";
+                    const displayTime = 5*60*1000; // Display time in milliseconds
+                    notify({ message: message, shading: true,type:type,displayTime:displayTime,closeOnClick:true }, { position: "center", direction: "up-push" });
+//                    notify(message, type, displayTime);
+                }
+//            }
+          })
+    }
+
 
 }
 
 export enum TimeClassyficationEnum {
+    now=0,
     future=1,
     past=2,
-    now=0
+    nowNext=3,  // nastepny program
 }
-
-
-
 
 
 function invalidValue(typ: any, val: any, key: any, parent: any = ''): never {

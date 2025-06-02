@@ -39,13 +39,59 @@
     overflow: hidden;
     display: flow;
     text-overflow: ellipsis;
+    align-items: center; /* Centrowanie pionowe */
 }
-::ng-deep .title-font {
+
+.title-style2{
+  color: black;
   font-size: 16px;
   font-weight: bold;
-  
+  align-items: center; /* Centrowanie pionowe */
+
 }
 
 ::ng-deep .ramkaOpisu> a {
   color:black
 }
+
+.container-ico {
+  display: flex;
+  flex-direction: column; /* Ustawienie pionowe */
+  gap: 1px; /* Odstęp między divami */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.trwa-teraz {
+  background-color: green;
+  height: 5px;
+  width: 55%;
+}
+
+.trwa-zaChwile {
+  height: 6px;
+  width: 55%;
+  background-color: orangered;
+
+
+}
+
+.trwa-Future {
+  background-color: black;
+  height: 3px;
+  width: 40%;
+}
+
+.trwa-Past {
+  background-color:black;
+  height: 2px;
+}
+
+
+.colored-div {
+  background-color: blue; /* Kolor tła */
+}
+
