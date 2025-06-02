@@ -12,10 +12,8 @@ import { DxDataGridModule, DxFormModule,  DxPopupModule, DxSchedulerModule, DxSw
 import { DxSelectBoxModule,DxButtonModule, DxTextAreaModule,DxProgressBarModule,DxHtmlEditorModule, } from 'devextreme-angular';
 import { ProgressSpecialComponent } from '../progress-special/progress-special.component';
 import { MyListaComponent } from '../my-lista/my-lista.component';
-import { IonIcon } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { analytics, earthSharp,logoGithub,rainyOutline,rocketOutline,analyticsOutline,walkOutline } from 'ionicons/icons';
-
+import { NgIconsModule } from '@ng-icons/core';
+import { bootstrap0CircleFill } from '@ng-icons/bootstrap-icons';
 
 @Component({
   selector: 'app-tvprogram',
@@ -26,8 +24,9 @@ import { analytics, earthSharp,logoGithub,rainyOutline,rocketOutline,analyticsOu
      DxDataGridModule,  DxFormModule,  DxPopupModule, DxSchedulerModule,
     DxDataGridModule,  DxFormModule,  DxPopupModule, DxSchedulerModule,
     DxButtonModule, DxProgressBarModule, DxSwitchModule, DxTextBoxModule, DxTextAreaModule,
-     DxHtmlEditorModule, DxSelectBoxModule,  MyListaComponent,ProgressSpecialComponent
-     ,IonIcon,
+     DxHtmlEditorModule, DxSelectBoxModule,  MyListaComponent,ProgressSpecialComponent,
+     
+     
     ]
 
 })
@@ -75,7 +74,7 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
 
   constructor(private srv: TelemanService, private geminisrv:OpenAiGeminiService){
     
-    addIcons({analytics, earthSharp,logoGithub,rainyOutline,rocketOutline,analyticsOutline,walkOutline });
+    
     
     srv.GetProgramsList().subscribe((x) => {
       this.kanaly = x;
@@ -202,4 +201,5 @@ export class TvprogramComponent implements OnInit,  AfterViewInit {
       });
     }
   
+    
   }

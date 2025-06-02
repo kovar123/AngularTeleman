@@ -20,23 +20,15 @@
   
 
   <dx-data-grid  id="tvGrid" class="smallGrid"  keyExpr="id" [height]="'880px'"
-  [dataSource]="tvs"  [focusedRowEnabled]="true" [focusedRowKey]="focusedId" (onRowPrepared)="onRowPrepared($event)"
-    
-  >
+  [dataSource]="tvs"  [focusedRowEnabled]="true" [focusedRowKey]="focusedId" (onRowPrepared)="onRowPrepared($event)" 
    keyExpr="id"  [dataSource]="tvs"  [focusedRowEnabled]="true" [focusedRowKey]="focusedId" >
   
   <dxo-load-panel [enabled]="true"></dxo-load-panel>
   <dxo-scrolling mode="infinite" ></dxo-scrolling>
-
   <dxo-header-filter [visible]="true"><dxo-search [enabled]="true"></dxo-search></dxo-header-filter>
   <dxo-search-panel [visible]="true" width="240" placeholder="szukaj..." location="before"></dxo-search-panel>
 
-<dxi-column name="trwanie" width="50" dataField="typProgramu" >
-  <!-- cellTemplate="cellTemplate" -->
-<div *dxTemplate="let data of 'cellTemplate'">
-  
-</div>
-</dxi-column>  
+<dxi-column name="trwanie" width="50" dataField="typProgramu" ></dxi-column>  
 
 <dxi-column name="tytul" dataField="tytul" width="20%" cellTemplate="nameTempl" >tytul</dxi-column>
 <dxi-column name="ico" dataField="powiadom" width="48" ></dxi-column>
@@ -56,11 +48,9 @@
 
 <div *dxTemplate="let data1 of 'AktualneTmpl'">
   <div class="ramkaOpisu">{{data1.data.trwanie}}</div>
-  <!-- <div [ngClass]   class="ramkaOpisu">{{nowClassyfication(data.data)}}</div> -->
 </div>
 
 <div *dxTemplate="let cellInfo of 'icoTemplate'">
-  
   <ion-icon name="{{getIconName(cellInfo.data.typProgramu)}}" size="large"></ion-icon>
 </div>
 
@@ -126,7 +116,8 @@
   
   <dxi-item location="after">
     <div *dxTemplate>
-      <dx-button icon="importselected" (onClick)="GetData()"></dx-button>
+      <dx-button  (onClick)="GetData()">
+      </dx-button>
     </div>
   </dxi-item>
 
